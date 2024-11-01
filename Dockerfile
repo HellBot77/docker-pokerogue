@@ -4,7 +4,7 @@ ARG TAG=latest
 RUN git clone https://github.com/pagefaultgames/pokerogue.git && \
     cd pokerogue && \
     ([[ "$TAG" = "latest" ]] || git checkout ${TAG}) && \
-    rm -rf .git && \
+    # rm -rf .git && \
     sed -i 's/export const apiUrl/export let apiUrl/' src/utils.ts && \
     PATCH="\
         try {\n\
@@ -16,7 +16,7 @@ RUN git clone https://github.com/pagefaultgames/pokerogue.git && \
         " && \
     sed -i "/export let apiUrl/a$PATCH" src/utils.ts
 
-FROM node:alpine AS build
+FROM node AS build
 
 WORKDIR /pokerogue
 COPY --from=base /git/pokerogue .
