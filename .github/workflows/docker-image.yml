@@ -38,6 +38,7 @@ jobs:
         with:
           repository: ${{ env.SOURCE_REPOSITORY }}
           ref: ${{ needs.get-tag.outputs.tag }}
+          submodules: recursive
       - name: Set Docker Hub username
         id: dockerhub-username
         run: echo "username=${DOCKERHUB_REPOSITORY%%/*}" >> $GITHUB_OUTPUT
